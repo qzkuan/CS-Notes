@@ -9,8 +9,10 @@
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0">
     <link rel="icon" href=" https://cyc-1256109796.cos.ap-guangzhou.myqcloud.com/LogoMakr_1J56bI.png">
     <link rel="stylesheet" href="https://cyc-1256109796.cos.ap-guangzhou.myqcloud.com/vue.css">
+
     <!-- 将自定义样式放在 Github 上会导致加载速度变得非常慢，所以采取直接内嵌的方式 -->
     <style type="text/css">
+    	
     /* 隐藏头部的目录 */
     #main>ul:nth-child(1) {
         display: none;
@@ -20,7 +22,7 @@
         display: none;
     }
 
-    h1 + ul {
+    h1+ul {
         display: block !important;
     }
 
@@ -34,8 +36,13 @@
 
     img,
     pre {
-        border-radius: 8px;
+        border-radius: 5px;
     }
+
+    .markdown-section p.tip,
+    .markdown-section tr:nth-child(1n) {
+    	background-color: #f8f8f8 !important;
+	}
 
     .content,
     .sidebar,
@@ -60,14 +67,50 @@
         /*font-family: Microsoft YaHei, Source Sans Pro, Helvetica Neue, Arial, sans-serif !important;*/
     }
 
+    .markdown-section pre>code {
+    	font-size: 13px;
+	}
+
+	code,
+	pre {
+    	background-color: #fff !important;
+	}
+
     .markdown-section>p {
         font-size: 16px !important;
     }
 
     .markdown-section pre>code {
         font-family: Consolas, Roboto Mono, Monaco, courier, monospace !important;
-        font-size: .9rem !important;
     }
+
+    p, h1, h2, h3, h4, ol, ul {
+    	letter-spacing: 2px !important;
+	}
+
+	p, ol, ul {
+    	line-height: 30px !important;
+	}
+
+    @media (min-width:600px) {
+        .markdown-section pre>code {
+            font-size: .9rem !important;
+            letter-spacing: 1.1px !important;
+        }
+    }
+
+    @media (max-width:600px) {
+        .markdown-section pre>code {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 15px !important;
+        }
+
+        pre:after {
+            content: "" !important;
+        }
+    }
+
 
     /*.anchor span {
     color: rgb(66, 185, 131);
@@ -81,8 +124,9 @@
         color: #42b983;
     }
 
-    .markdown-section img {
-        box-shadow: 7px 9px 10px #aaa !important;
+    .markdown-section > div > img,
+    .markdown-section pre {
+        box-shadow: 0px 0px 20px 11px #eaeaea;
     }
 
     pre {
@@ -99,15 +143,22 @@
 
     @media (max-width:600px) {
         pre {
-            padding-left: 0px !important;
-            padding-right: 0px !important;
+        	padding-left: 3px !important;
+    		padding-right: 3px !important;
+    		margin-left: -20px !important;
+    		margin-right: -20px !important;
+    		box-shadow: 0px 0px 20px 0px #eee !important;
+        }
+
+
+        .docsify-copy-code-button {
+            display: none;
         }
     }
 
     .markdown-section pre {
         padding-left: 0 !important;
         padding-right: 0px !important;
-        box-shadow: 2px 1px 20px 2px #aaa;
     }
     </style>
     <style type="text/css">
@@ -217,6 +268,32 @@
         transform: rotate(2deg);
     }
 
+    /*黑色*/
+    .token.function,
+    .token.operator,
+    .token.class-name {
+        color: #2C3E50;
+    }
+
+    /*深蓝加粗*/
+    .token.keyword {
+    	color: #333;
+    	font-weight: 700;
+    }
+
+
+    /*浅蓝*/
+    .token.property,
+    .token.tag,
+    .token.boolean,
+    .token.number,
+    .token.function-name,
+    .token.constant,
+    .token.symbol,
+    .token.deleted {
+        color: #2980B9;
+    }
+
     .token.comment,
     .token.block-comment,
     .token.prolog,
@@ -229,28 +306,17 @@
         color: #5F6364;
     }
 
-    .token.property,
-    .token.tag,
-    .token.boolean,
-    .token.number,
-    .token.function-name,
-    .token.constant,
-    .token.symbol,
-    .token.deleted {
-        color: #c92c2c;
-    }
 
     .token.selector,
     .token.attr-name,
     .token.string,
     .token.char,
-    .token.function,
     .token.builtin,
     .token.inserted {
-        color: #2f9c0a;
+        color: #1ABC9C;
+        font-weight: bold;   
     }
 
-    .token.operator,
     .token.entity,
     .token.url,
     .token.variable {
@@ -259,9 +325,7 @@
     }
 
     .token.atrule,
-    .token.attr-value,
-    .token.keyword,
-    .token.class-name {
+    .token.attr-value {
         color: #1990b8;
     }
 
@@ -350,7 +414,6 @@
     window.$docsify = {
         maxAge: 100,
         name: 'CS-Notes',
-        nameLink: 'https://cyc2018.github.io/CS-Notes/#/README',
         repo: 'https://github.com/CyC2018/CS-Notes',
         search: {
             paths: 'auto',
@@ -359,7 +422,8 @@
             depth: 6
         },
         // subMaxLevel: 2,
-        coverpage: true
+        coverpage: true,
+        notFoundPage: true
     }
     </script>
     <script src="https://cyc-1256109796.cos.ap-guangzhou.myqcloud.com/docsify.min.js"></script>
@@ -370,8 +434,7 @@
     <script src="https://cyc-1256109796.cos.ap-guangzhou.myqcloud.com/prism-bash.min.js"></script>
     <script src="https://cyc-1256109796.cos.ap-guangzhou.myqcloud.com/prism-sql.min.js"></script>
     <script src="https://cyc-1256109796.cos.ap-guangzhou.myqcloud.com/zoom-image.min.js"></script>
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
+    <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 </body>
 
 </html>
